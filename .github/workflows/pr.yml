@@ -1,0 +1,75 @@
+name: PR
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+jobs:
+  check:
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    concurrency:
+      group: check-pr-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup mise
+        uses: jdx/mise-action@v5.0.1
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Format
+        run: dart format --set-exit-if-changed .
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Test
+        run: flutter test
+
+  preview:
+    # Cleanup on close even when check was skipped; skip Dependabot entirely.
+    if: >-
+      always() &&
+      github.actor != 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      (github.event.action == 'closed' || needs.check.result == 'success')
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    concurrency:
+      group: gh-pages
+      cancel-in-progress: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup mise
+        if: github.event.action != 'closed'
+        uses: jdx/mise-action@v5.0.1
+
+      - name: Install dependencies
+        if: github.event.action != 'closed'
+        run: flutter pub get
+
+      - name: Build web (profile)
+        if: github.event.action != 'closed'
+        run: |
+          flutter build web --profile \
+            -t lib/main_preview.dart \
+            --base-href "/flutter-flame-samples/pr-preview/pr-${{ github.event.number }}/"
+          touch build/web/.nojekyll
+
+      - name: Deploy PR preview
+        uses: rossjrw/pr-preview-action@v1.8.1
+        with:
+          source-dir: build/web
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview

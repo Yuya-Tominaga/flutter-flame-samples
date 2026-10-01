@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flutter Flame Samples — Device Preview</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: #12121a;
+      color: #f2f2f7;
+      line-height: 1.5;
+    }
+    h1 { margin-top: 0; }
+    a { color: #4cc9f0; }
+    ul { padding-left: 1.25rem; }
+    .note {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #1b1b2f;
+      border-radius: 8px;
+      max-width: 40rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Device Preview Links</h1>
+  <p>
+    GitHub Pages は profile ビルドで公開されています。
+    端末は URL クエリで指定します（アプリ内 UI はありません）。
+  </p>
+  <h2>Portrait</h2>
+  <ul>
+    <li><a href="./?device=iphone-16&orientation=portrait#/">iPhone 16</a></li>
+    <li><a href="./?device=iphone-se3&orientation=portrait#/">iPhone SE 3</a></li>
+    <li><a href="./?device=ipad-pro-11&orientation=portrait#/">iPad Pro 11</a></li>
+    <li><a href="./?device=pixel-9&orientation=portrait#/">Pixel 9</a></li>
+    <li><a href="./?device=galaxy-s25&orientation=portrait#/">Galaxy S25</a></li>
+  </ul>
+  <h2>Landscape</h2>
+  <ul>
+    <li><a href="./?device=iphone-16&orientation=landscape#/">iPhone 16</a></li>
+    <li><a href="./?device=iphone-se3&orientation=landscape#/">iPhone SE 3</a></li>
+    <li><a href="./?device=ipad-pro-11&orientation=landscape#/">iPad Pro 11</a></li>
+    <li><a href="./?device=pixel-9&orientation=landscape#/">Pixel 9</a></li>
+    <li><a href="./?device=galaxy-s25&orientation=landscape#/">Galaxy S25</a></li>
+  </ul>
+  <h2>Without simulation</h2>
+  <ul>
+    <li><a href="./#/">Open app (host viewport)</a></li>
+  </ul>
+  <div class="note">
+    未知の <code>device</code> / <code>orientation</code> を渡すとアプリは起動せず、
+    エラーはブラウザのコンソールに出力されます。
+  </div>
+</body>
+</html>
