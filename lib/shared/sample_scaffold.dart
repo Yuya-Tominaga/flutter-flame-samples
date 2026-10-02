@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_flame_samples/shared/sample.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,6 +25,10 @@ class _SampleScaffoldState extends State<SampleScaffold> {
   @override
   void initState() {
     super.initState();
+    final orientations = widget.sample.preferredOrientations;
+    if (orientations.isNotEmpty) {
+      unawaited(SystemChrome.setPreferredOrientations(orientations));
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         _gameFocusNode.requestFocus();
@@ -31,6 +38,9 @@ class _SampleScaffoldState extends State<SampleScaffold> {
 
   @override
   void dispose() {
+    if (widget.sample.preferredOrientations.isNotEmpty) {
+      unawaited(SystemChrome.setPreferredOrientations(const []));
+    }
     _gameFocusNode.dispose();
     super.dispose();
   }
@@ -66,7 +76,13 @@ class _SampleScaffoldState extends State<SampleScaffold> {
           Expanded(
             child: Focus(
               focusNode: _gameFocusNode,
-              child: GameWidget(game: _game),
+              child: GameWidget(
+                game: _game,
+                overlayBuilderMap: switch (_game) {
+                  final HasSampleOverlays game => game.overlayBuilderMap,
+                  _ => null,
+                },
+              ),
             ),
           ),
         ],

@@ -1,4 +1,6 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_flame_samples/samples/basic_movement/basic_movement_game.dart';
+import 'package:flutter_flame_samples/samples/endless_breakout/endless_breakout_game.dart';
 import 'package:flutter_flame_samples/shared/sample.dart';
 
 /// Registry of all samples shown in the catalog.
@@ -10,6 +12,15 @@ final List<Sample> samples = [
     title: 'Basic Movement',
     description: 'Move the circle with WASD / arrow keys, or tap / drag on the playfield.',
     gameBuilder: BasicMovementGame.new,
+  ),
+  const Sample(
+    id: 'endless-breakout',
+    title: 'Endless Breakout',
+    description:
+        'Break the bricks creeping down before they reach the red line. '
+        'Drag the lower half to move the paddle, tap to launch.',
+    gameBuilder: EndlessBreakoutGame.new,
+    preferredOrientations: [DeviceOrientation.portraitUp],
   ),
 ];
 

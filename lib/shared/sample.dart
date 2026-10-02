@@ -1,4 +1,5 @@
 import 'package:flame/game.dart';
+import 'package:flutter/services.dart';
 
 /// Metadata and factory for a Flame sample shown in the catalog.
 class Sample {
@@ -8,6 +9,7 @@ class Sample {
     required this.title,
     required this.description,
     required this.gameBuilder,
+    this.preferredOrientations = const [],
   });
 
   /// Unique route id used in `/samples/:id`.
@@ -21,4 +23,17 @@ class Sample {
 
   /// Builds a fresh [FlameGame] instance for this sample.
   final FlameGame Function() gameBuilder;
+
+  /// Orientations the device is locked to while the sample is open.
+  ///
+  /// Empty means the sample does not restrict orientation.
+  final List<DeviceOrientation> preferredOrientations;
+}
+
+/// Implemented by sample games that show Flutter overlays.
+///
+/// The sample scaffold registers [overlayBuilderMap] on the [GameWidget].
+abstract interface class HasSampleOverlays {
+  /// Overlay builders keyed by overlay name.
+  Map<String, OverlayWidgetBuilder<FlameGame>> get overlayBuilderMap;
 }
