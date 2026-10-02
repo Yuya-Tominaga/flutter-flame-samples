@@ -84,6 +84,22 @@ flutter run -d chrome --profile -t lib/main_preview.dart
 
 共通の画面枠は [`SampleScaffold`](lib/shared/sample_scaffold.dart) です。存在しないサンプル id はエラー画面を表示し、暗黙のリダイレクトはしません。
 
+- 画面の向きを固定したいサンプルは `Sample.preferredOrientations` を指定します（サンプル表示中だけ固定し、離れると解除）
+- Flutter の overlay 画面を使うゲームは `HasSampleOverlays` を実装すると `GameWidget` に登録されます
+
+## サンプル一覧
+
+| id | 内容 |
+| --- | --- |
+| `basic-movement` | キーボード / タップ / ドラッグで円を動かす |
+| `endless-breakout` | 迫ってくるブロックを崩し続けるエンドレス型レンガ崩し（縦持ち固定） |
+
+`endless-breakout` の効果音（`assets/audio/endless_breakout/*.wav`）はスクリプトで生成しています。
+
+```bash
+dart run tool/generate_endless_breakout_sfx.dart
+```
+
 ## 品質チェック
 
 ```bash
