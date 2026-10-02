@@ -1,0 +1,28 @@
+name: flutter_flame_samples
+description: Flutter Flame verification samples catalog.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.4
+
+dependencies:
+  cupertino_icons: ^1.0.8
+  device_preview: ^3.0.0
+  flame: ^1.38.2
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  go_router: ^18.0.2
+
+dev_dependencies:
+  flame_test: ^2.3.1
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^11.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
