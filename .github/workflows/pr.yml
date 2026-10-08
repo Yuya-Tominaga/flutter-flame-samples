@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v7.0.1
 
       - name: Setup mise
-        uses: jdx/mise-action@v5.0.1
+        uses: jdx/mise-action@v5.1.1
 
       - name: Install dependencies
         run: flutter pub get
@@ -53,7 +53,7 @@ jobs:
 
       - name: Setup mise
         if: github.event.action != 'closed'
-        uses: jdx/mise-action@v5.0.1
+        uses: jdx/mise-action@v5.1.1
 
       - name: Install dependencies
         if: github.event.action != 'closed'
